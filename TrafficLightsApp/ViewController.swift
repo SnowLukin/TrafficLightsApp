@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var startButton: UIButton!
     
-    // MARK: - Life circle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
