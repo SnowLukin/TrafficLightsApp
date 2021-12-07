@@ -8,11 +8,15 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    // MARK: - IB Outlets
     @IBOutlet weak var redLightView: UIView!
     @IBOutlet weak var yellowLightView: UIView!
     @IBOutlet weak var greenLightView: UIView!
     
     @IBOutlet weak var startButton: UIButton!
+    
+    // MARK: - Life circle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -24,21 +28,15 @@ class ViewController: UIViewController {
         startButton.setTitle("START", for: .normal)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         
         setCircleView(lightView: redLightView)
         setCircleView(lightView: yellowLightView)
         setCircleView(lightView: greenLightView)
     }
     
-    private func setCircleView(lightView: UIView) {
-        lightView.layer.cornerRadius = lightView.layer.bounds.width / 2
-        lightView.clipsToBounds = true
-        lightView.layer.borderColor = UIColor.white.cgColor
-        lightView.layer.borderWidth = 1
-    }
-    
+    // MARK: - IB Actions
     @IBAction func changeLightColor() {
         startButton.setTitle("NEXT", for: .normal)
         
@@ -53,6 +51,14 @@ class ViewController: UIViewController {
             greenLightView.alpha = 0.3
             redLightView.alpha = 1
         }
+    }
+    
+    // MARK: Private methods
+    private func setCircleView(lightView: UIView) {
+        lightView.layer.cornerRadius = lightView.layer.bounds.width / 2
+        lightView.clipsToBounds = true
+        lightView.layer.borderColor = UIColor.white.cgColor
+        lightView.layer.borderWidth = 1
     }
     
 }
