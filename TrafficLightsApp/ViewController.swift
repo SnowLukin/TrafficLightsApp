@@ -25,12 +25,14 @@ class ViewController: UIViewController {
         yellowLightView.alpha = 0.3
         greenLightView.alpha = 0.3
         
-        startButton.setTitle("START", for: .normal)
+        startButton.configuration = setButtonConfig(title: "START")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
+        // сначала подумал что будет лучше сделать это в
+        // viewdidlayoutsubviews, но там работало не корректно.
         setCircleView(lightView: redLightView)
         setCircleView(lightView: yellowLightView)
         setCircleView(lightView: greenLightView)
@@ -54,6 +56,13 @@ class ViewController: UIViewController {
     }
     
     // MARK: Private methods
+    private func setButtonConfig(title: String) -> UIButton.Configuration {
+        var config: UIButton.Configuration = .filled()
+        config.title = title
+        
+        return config
+    }
+    
     private func setCircleView(lightView: UIView) {
         lightView.layer.cornerRadius = lightView.layer.bounds.width / 2
         lightView.clipsToBounds = true
