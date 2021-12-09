@@ -9,14 +9,15 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    // MARK: - IB Outlets
+    // MARK: IB Outlets
     @IBOutlet weak var redLightView: UIView!
     @IBOutlet weak var yellowLightView: UIView!
     @IBOutlet weak var greenLightView: UIView!
     
     @IBOutlet weak var startButton: UIButton!
     
-    // MARK: - Lifecycle
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -25,23 +26,25 @@ class ViewController: UIViewController {
         yellowLightView.alpha = 0.3
         greenLightView.alpha = 0.3
         
-        startButton.configuration = setButtonConfig(title: "START")
+        startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        startButton.setTitle("START", for: .normal)
+        startButton.backgroundColor = .systemBlue
+        startButton.setTitleColor(.black, for: .normal)
+        startButton.layer.cornerRadius = 10
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         
-        // сначала подумал что будет лучше сделать это в
-        // viewdidlayoutsubviews, но там работало не корректно.
         setCircleView(lightView: redLightView)
         setCircleView(lightView: yellowLightView)
         setCircleView(lightView: greenLightView)
     }
     
-    // MARK: - IB Actions
+    // MARK: IB Actions
     @IBAction func changeLightColor() {
         startButton.setTitle("NEXT", for: .normal)
-        
+
         switch redLightView.alpha {
         case 1:
             redLightView.alpha = 0.3
@@ -56,13 +59,6 @@ class ViewController: UIViewController {
     }
     
     // MARK: Private methods
-    private func setButtonConfig(title: String) -> UIButton.Configuration {
-        var config: UIButton.Configuration = .filled()
-        config.title = title
-        
-        return config
-    }
-    
     private func setCircleView(lightView: UIView) {
         lightView.layer.cornerRadius = lightView.layer.bounds.width / 2
         lightView.clipsToBounds = true
